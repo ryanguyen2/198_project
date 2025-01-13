@@ -1,0 +1,41 @@
+#include "main.h"
+
+UART_HandleTypeDef huart2;
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+
+int main(void) {
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_USART2_UART_Init();
+
+    uint8_t motion_state = 0;
+
+    while (1) {
+        // Check if motion is detected (PIR sensor output is high)
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) {  // Assuming PA0 is connected to PIR output
+            motion_state = 1;
+            HAL_UART_Transmit(&huart2, &motion_state, 1, HAL_MAX_DELAY);
+            HAL_Delay(1000);  // Send motion state every second while motion is detected
+        } else {
+            motion_state = 0;
+            HAL_UART_Transmit(&huart2, &motion_state, 1, HAL_MAX_DELAY);
+            HAL_Delay(1000);  // Send no-motion state every second
+        }
+    }
+}
+
+static void MX_GPIO_Init(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    // Enable GPIO Clock
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    // Configure PIR Sensor Pin (PA0) as Input
+    GPIO_InitStruct.Pin = GPIO_PIN_0;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 
