@@ -1,7 +1,7 @@
-# Visual Cue Notification System
+# Visual Cue Notification System (LumoSense)
 
 ## Overview
-The **Visual Cue Notification System** is an assistive technology designed for hearing-impaired individuals living in university dormitories. This "door-bell system" enhances safety and accessibility by providing real-time visual alerts when motion is detected outside a door. Using two STM32 Nucleo boards and wired communication, the system transmits motion data from a PIR sensor to an LED visual alert.
+**LumoSense** is an assistive technology designed for hearing-impaired individuals living in university dormitories. This "door-bell system" enhances safety and accessibility by providing real-time visual alerts when motion is detected outside a door. Using two STM32 Nucleo boards and wired communication, the system transmits motion data from a PIR sensor to an LED visual alert.
 
 ### Problem Statement
 Hearing-impaired students in dormitories face challenges due to the lack of adequate accessibility infrastructure, such as visual alert systems for door knocks or fire alarms. Many existing solutions are either expensive or do not integrate well with dormitory environments. Our project aims to bridge this gap by offering an affordable, portable, and reliable notification system.
